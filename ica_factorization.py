@@ -1,5 +1,5 @@
 import argparse
-
+import time
 import torch
 from sklearn.decomposition import FastICA
 import numpy as np
@@ -50,7 +50,8 @@ if __name__ == "__main__":
 
     np.random.seed(0)
     random.seed(0)
+    s = time.process_time()
     eigvec = independent_components_decomposition(W, args.number_of_component).to("cpu")
-
+    print(time.process_time() - s)
     torch.save({"ckpt": args.ckpt, "eigvec": eigvec}, args.out)
 

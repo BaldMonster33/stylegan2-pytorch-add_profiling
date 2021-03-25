@@ -1,5 +1,5 @@
 import argparse
-
+import time
 import torch
 
 
@@ -32,7 +32,8 @@ if __name__ == "__main__":
         weight_mat.append(v)
 
     W = torch.cat(weight_mat, 0)
+    s = time.process_time()
     eigvec = torch.svd(W).V.to("cpu")
-
+    print(time.process_time() - s)
     torch.save({"ckpt": args.ckpt, "eigvec": eigvec}, args.out)
 
